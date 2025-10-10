@@ -1,13 +1,15 @@
 # Plateforme Enseignant Alkawthar 2025-2026
 
-Site **statique** prêt pour Vercel.
+Site statique prêt à déployer sur **Vercel**.
 
-## Déploiement
-1. Créer un dépôt GitHub et y ajouter ces fichiers.
-2. Sur [vercel.com](https://vercel.com), importer le dépôt.
-3. Framework: **Other** (Static). Pas de build — `index.html` est servi tel quel.
+### Déploiement rapide
+1. Crée un dépôt GitHub et ajoute ces fichiers à la racine.
+2. Sur [vercel.com](https://vercel.com), importe le dépôt.
+3. Framework: **Other**
+4. Output Directory: `/` (laisser vide)
+5. Le site sera disponible à `https://ton-nom-projet.vercel.app`
 
-## Personnalisation
-- Logo : `public/logo.png`
-- Les liens s’ouvrent dans **le même onglet** (aucun `target="_blank"`).
-- Thème clair/sombre via le bouton de l’en-tête.
+### Personnalisation
+- Le logo se trouve à la racine sous le nom `logo.png`.
+- Les liens ouvrent les plateformes sans nouvelle fenêtre.
+- Un bouton en haut à droite permet le mode clair/sombre.
