@@ -1,4 +1,5 @@
 (function() {
+  // --- Données du calendrier ---
   const calendarData = [
     { "Mois": "Août", "Semaine": "Semaine 1", "Jour": "Dimanche", "Date": "31/08/2025", "Type": "Orientation" },
     { "Mois": "Septembre", "Semaine": "Semaine 1", "Jour": "Lundi", "Date": "01/09/2025", "Type": "Orientation" },
@@ -212,37 +213,93 @@
     { "Mois": "Juin", "Semaine": "-", "Jour": "Jeudi", "Date": "18/06/2026", "Type": "Examen Final" },
   ];
 
+  // --- Éléments du DOM ---
   const calendarBody = document.getElementById('academic-calendar')?.querySelector('tbody');
   const monthFilter = document.getElementById('month-filter');
+  const openCalendarBtn = document.getElementById('open-calendar-btn');
+  const calendarModal = document.getElementById('calendar-modal');
+  const closeModalBtn = calendarModal?.querySelector('.modal-close');
 
+  /**
+   * Peuple le tableau du calendrier avec les données, en fusionnant les cellules de type.
+   * @param {string} [filter='all'] - Le mois par lequel filtrer, ou 'all' pour tout afficher.
+   */
   function populateCalendar(filter = 'all') {
     if (!calendarBody) return;
     calendarBody.innerHTML = '';
-    
+
     const filteredData = (filter === 'all')
       ? calendarData
       : calendarData.filter(item => item.Mois === filter);
 
-    filteredData.forEach(item => {
-      const row = document.createElement('tr');
-      const typeSlug = item.Type.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-      
-      row.innerHTML = `
-        <td>${item.Mois}</td>
-        <td>${item.Semaine}</td>
-        <td>${item.Jour}</td>
-        <td>${item.Date}</td>
-        <td><span class="event-type type-${typeSlug}">${item.Type}</span></td>
-      `;
-      calendarBody.appendChild(row);
-    });
+    let i = 0;
+    while (i < filteredData.length) {
+        const currentItem = filteredData[i];
+        
+        // Compte les éléments consécutifs avec le même type
+        let rowspanCount = 1;
+        let j = i + 1;
+        while (j < filteredData.length && filteredData[j].Type === currentItem.Type) {
+            rowspanCount++;
+            j++;
+        }
+
+        // Crée la première ligne de la séquence avec rowspan
+        const row = document.createElement('tr');
+        const typeSlug = currentItem.Type.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        
+        row.innerHTML = `
+            <td>${currentItem.Mois}</td>
+            <td>${currentItem.Semaine}</td>
+            <td>${currentItem.Jour}</td>
+            <td>${currentItem.Date}</td>
+            <td rowspan="${rowspanCount}">
+                <span class="event-type type-${typeSlug}">${currentItem.Type}</span>
+            </td>
+        `;
+        calendarBody.appendChild(row);
+
+        // Crée les lignes suivantes sans la cellule 'Type'
+        for (let k = 1; k < rowspanCount; k++) {
+            const nextItem = filteredData[i + k];
+            const subsequentRow = document.createElement('tr');
+            subsequentRow.innerHTML = `
+                <td>${nextItem.Mois}</td>
+                <td>${nextItem.Semaine}</td>
+                <td>${nextItem.Jour}</td>
+                <td>${nextItem.Date}</td>
+            `;
+            calendarBody.appendChild(subsequentRow);
+        }
+
+        // Passe à la séquence suivante
+        i += rowspanCount;
+    }
   }
 
+  // --- Gestion du Modal ---
+  openCalendarBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    calendarModal?.classList.add('visible');
+  });
+
+  closeModalBtn?.addEventListener('click', () => {
+    calendarModal?.classList.remove('visible');
+  });
+
+  calendarModal?.addEventListener('click', (e) => {
+    // Ferme le modal si on clique sur l'arrière-plan
+    if (e.target === calendarModal) {
+      calendarModal.classList.remove('visible');
+    }
+  });
+
+  // --- Gestion des filtres ---
   monthFilter?.addEventListener('change', (event) => {
     populateCalendar(event.target.value);
   });
 
-  // Initial population of the calendar
+  // --- Initialisation ---
   populateCalendar();
 
 })();
