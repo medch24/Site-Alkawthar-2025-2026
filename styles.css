@@ -22,8 +22,6 @@ body{
   overflow-x:hidden;
 }
 
-.bg-glow{ display: none; }
-
 /* En-tête */
 .site-header{
   position:relative;
@@ -105,12 +103,76 @@ body{
   font-size:1rem;
 }
 
-/* Section Calendrier */
-.calendar-section {
-  max-width:1400px;
-  margin: 0 auto;
-  padding: 32px;
+/* Styles pour le Modal du Calendrier */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
+
+.modal-overlay.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-content {
+  position: relative;
+  background: var(--bg);
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 1200px;
+  height: 90%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.visible .modal-content {
+  transform: scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-content .calendar-section {
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content .calendar-header {
+  flex-shrink: 0;
+}
+
+.modal-content .calendar-container {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+/* Section Calendrier */
 .calendar-header {
   display: flex;
   justify-content: space-between;
@@ -138,12 +200,6 @@ body{
   font-family: Inter, sans-serif;
   font-size: 1rem;
 }
-.calendar-container {
-  overflow-x: auto;
-  background: var(--panel);
-  border-radius: 12px;
-  box-shadow: 0 5px 20px var(--shadow);
-}
 #academic-calendar {
   width: 100%;
   border-collapse: collapse;
@@ -152,6 +208,7 @@ body{
   padding: 14px 18px;
   text-align: left;
   border-bottom: 1px solid var(--panel-2);
+  vertical-align: middle;
 }
 #academic-calendar th {
   background-color: var(--panel-2);
