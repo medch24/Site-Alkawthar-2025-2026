@@ -119,12 +119,10 @@ body{
   opacity: 0;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
-
 .modal-overlay.visible {
   visibility: visible;
   opacity: 1;
 }
-
 .modal-content {
   position: relative;
   background: var(--bg);
@@ -139,11 +137,9 @@ body{
   transform: scale(0.95);
   transition: transform 0.3s ease;
 }
-
 .modal-overlay.visible .modal-content {
   transform: scale(1);
 }
-
 .modal-close {
   position: absolute;
   top: 15px;
@@ -155,21 +151,20 @@ body{
   cursor: pointer;
   line-height: 1;
 }
-
 .modal-content .calendar-section {
   padding: 0;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
-
 .modal-content .calendar-header {
   flex-shrink: 0;
 }
-
 .modal-content .calendar-container {
   flex-grow: 1;
   overflow-y: auto;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
 }
 
 /* Section Calendrier */
@@ -200,39 +195,53 @@ body{
   font-family: Inter, sans-serif;
   font-size: 1rem;
 }
+
 #academic-calendar {
   width: 100%;
   border-collapse: collapse;
 }
 #academic-calendar th, #academic-calendar td {
-  padding: 14px 18px;
+  padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid var(--panel-2);
-  vertical-align: middle;
+  border: 1px solid #dee2e6; /* Bordures claires et visibles */
 }
 #academic-calendar th {
   background-color: var(--panel-2);
   font-weight: 600;
 }
-#academic-calendar tbody tr:hover {
-  background-color: #f1f3f5;
+
+/* Centrage du texte pour les cellules fusionnées */
+#academic-calendar td[rowspan] {
+    font-weight: 600;
+    text-align: center;
+    vertical-align: middle;
 }
 
-/* Styles pour les types d'événements */
-.event-type {
-  padding: 5px 10px;
-  border-radius: 6px;
-  color: white;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-align: center;
-  display: inline-block;
+/* Couleurs des lignes par type d'événement */
+tr.type-orientation { background-color: #e0f7fa; }
+tr.type-cours-normale { background-color: #e8f5e9; }
+tr.type-fête-nationale-saoudienne, 
+tr.type-jour-de-la-fondation-saoudienne {
+  background-color: #d4edda;
+  color: #155724;
 }
-.type-orientation { background-color: #17a2b8; }
-.type-cours-normale { background-color: #28a745; }
-.type-fête-nationale-saoudienne, .type-jour-de-la-fondation-saoudienne { background-color: #006400; }
-.type-vacances, .type-vacances-aïd-al-fitr, .type-vacances-aïd-al-adha, .type-long-weekend { background-color: #ffc107; color: #212529; }
-.type-examen-final, .type-évaluations { background-color: #dc3545; }
+tr.type-vacances, 
+tr.type-vacances-aïd-al-fitr, 
+tr.type-vacances-aïd-al-adha, 
+tr.type-long-weekend {
+  background-color: #fff3cd;
+  color: #856404;
+}
+tr.type-examen-final, 
+tr.type-évaluations {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Effet au survol des lignes */
+#academic-calendar tbody tr:hover {
+  filter: brightness(95%);
+}
 
 
 /* Pied de page */
