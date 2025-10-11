@@ -1,96 +1,190 @@
 /* Thème */
 :root{
-  --bg:#0b1020;
-  --panel:#111a33;
-  --panel-2:#0e1630;
-  --text:#e8efff;
-  --muted:#9fb2d9;
-  --brand:#2db3ff;
-  --accent:#6ae1ff;
-  --ring: rgba(45,179,255,.45);
-}
-:root.light{
-  --bg:#f6f9ff;
+  --bg:#f8f9fa;
   --panel:#ffffff;
-  --panel-2:#f1f5ff;
-  --text:#0c1633;
-  --muted:#4a5a7d;
-  --brand:#0a7ccf;
-  --accent:#27b5ff;
-  --ring: rgba(10,124,207,.25);
+  --panel-2:#e9ecef;
+  --text:#212529;
+  --muted:#6c757d;
+  --brand:#007bff;
+  --accent:#0056b3;
+  --ring: rgba(0, 123, 255, 0.25);
+  --shadow: rgba(0, 0, 0, 0.1);
 }
+
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
-  margin:0;background:var(--bg);color:var(--text);
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
   font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
-  line-height:1.45;overflow-x:hidden;
+  line-height:1.5;
+  overflow-x:hidden;
 }
 
-/* Fond lumineux animé */
-.bg-glow{
-  position:fixed; inset:-20vmax;
-  background:
-    radial-gradient(40vmax 40vmax at 20% 20%, rgba(106,225,255,.15), transparent 70%),
-    radial-gradient(50vmax 50vmax at 80% 10%, rgba(45,179,255,.18), transparent 70%),
-    radial-gradient(45vmax 45vmax at 60% 90%, rgba(45,179,255,.12), transparent 70%);
-  filter: blur(40px); pointer-events:none; z-index:0;
-  animation: float 24s ease-in-out infinite alternate;
-}
-@keyframes float{from{transform:translateY(-2%)}to{transform:translateY(2%)}}
+.bg-glow{ display: none; }
 
 /* En-tête */
 .site-header{
-  position:relative; z-index:1;
-  display:flex; align-items:center; gap:1rem;
-  padding: clamp(16px,2.5vw,32px);
-  max-width:1200px; margin:0 auto;
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  gap:1.5rem;
+  padding: clamp(20px, 4vw, 40px);
+  max-width:1400px;
+  margin:0 auto;
+  border-bottom: 1px solid var(--panel-2);
 }
-.logo{width:64px;height:64px;border-radius:50%;box-shadow:0 0 0 4px var(--panel-2), 0 0 0 8px var(--ring)}
-.titles h1{font-weight:800;margin:0;font-family:Nunito,Inter,sans-serif;letter-spacing:.3px}
+.logo{
+  width:80px;
+  height:80px;
+  border-radius:12px;
+  box-shadow: 0 4px 15px var(--shadow);
+}
+.titles h1{
+  font-weight:800;
+  margin:0;
+  font-family:Nunito,Inter,sans-serif;
+  letter-spacing:.3px;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+}
 .brand{color:var(--brand)}
-.subtitle{margin:.2rem 0 0;color:var(--muted)}
-.theme-toggle{
-  margin-left:auto;background:var(--panel-2);border:1px solid rgba(255,255,255,.08);
-  color:var(--text); padding:.6rem .7rem; border-radius:999px; cursor:pointer;
-  transition: transform .2s ease, box-shadow .2s ease;
-  box-shadow: 0 4px 20px rgba(0,0,0,.25), 0 0 0 3px transparent;
+.subtitle{
+  margin:.2rem 0 0;
+  color:var(--muted);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
 }
-.theme-toggle:hover{transform:translateY(-1px);box-shadow:0 6px 26px rgba(0,0,0,.3),0 0 0 3px var(--ring)}
-.icon{width:28px;height:28px;fill:currentColor}
 
 /* Grille de tuiles */
 .grid{
-  position:relative; z-index:1;
-  max-width:1200px; margin:0 auto; padding: 10px 16px 64px;
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px;
+  position:relative;
+  z-index:1;
+  max-width:1400px;
+  margin:0 auto;
+  padding: 32px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:24px;
 }
 .tile{
-  display:flex; gap:14px; text-decoration:none; color:inherit;
-  background:linear-gradient(180deg,var(--panel),var(--panel-2));
-  border:1px solid rgba(255,255,255,.08);
-  padding:16px 18px; border-radius:18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.25);
-  outline:none; position:relative; overflow:hidden;
-  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+  display:flex;
+  gap:18px;
+  text-decoration:none;
+  color:inherit;
+  background:var(--panel);
+  border:1px solid var(--panel-2);
+  padding:20px 22px;
+  border-radius:12px;
+  box-shadow: 0 5px 20px var(--shadow);
+  outline:none;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
-.tile:focus-visible{box-shadow:0 0 0 4px var(--ring)}
-.tile:before{
-  content:""; position:absolute; inset:-50% -20%; transform: rotate(6deg);
-  background: radial-gradient(30% 30% at 50% 50%, rgba(106,225,255,.18), transparent 60%);
-  opacity:0; transition: opacity .3s ease;
+.tile:hover, .tile:focus-visible{
+  transform:translateY(-5px);
+  border-color: var(--brand);
+  box-shadow: 0 8px 30px rgba(0, 123, 255, 0.2);
 }
-.tile:hover{transform:translateY(-4px); border-color: rgba(106,225,255,.35); box-shadow: 0 16px 40px rgba(0,0,0,.35)}
-.tile:hover:before{opacity:1}
 .tile-icon{
-  display:grid; place-items:center; flex:0 0 56px; height:56px; border-radius:14px;
-  background:linear-gradient(135deg,var(--brand),var(--accent)); color:white;
-  box-shadow: inset 0 -6px 20px rgba(0,0,0,.25), 0 8px 20px rgba(45,179,255,.35);
-  animation: pop 0.8s cubic-bezier(.2,.8,.2,1) both;
+  display:grid;
+  place-items:center;
+  flex:0 0 52px;
+  height:52px;
+  border-radius:12px;
+  background:var(--brand);
+  color:white;
 }
-@keyframes pop{0%{transform:scale(.9)}100%{transform:scale(1)}}
-.tile-body h2{margin:.2rem 0 .1rem; font-size:1.1rem}
-.tile-body p{margin:0; color:var(--muted); font-size:.95rem}
+.tile-body h2{
+  margin:0 0 .2rem;
+  font-size:1.2rem;
+  font-weight: 600;
+}
+.tile-body p{
+  margin:0;
+  color:var(--muted);
+  font-size:1rem;
+}
+
+/* Section Calendrier */
+.calendar-section {
+  max-width:1400px;
+  margin: 0 auto;
+  padding: 32px;
+}
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.calendar-header h2 {
+  margin: 0;
+  font-family: Nunito, Inter, sans-serif;
+  font-weight: 800;
+}
+.calendar-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.calendar-filters select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--panel-2);
+  background: var(--panel);
+  color: var(--text);
+  font-family: Inter, sans-serif;
+  font-size: 1rem;
+}
+.calendar-container {
+  overflow-x: auto;
+  background: var(--panel);
+  border-radius: 12px;
+  box-shadow: 0 5px 20px var(--shadow);
+}
+#academic-calendar {
+  width: 100%;
+  border-collapse: collapse;
+}
+#academic-calendar th, #academic-calendar td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid var(--panel-2);
+}
+#academic-calendar th {
+  background-color: var(--panel-2);
+  font-weight: 600;
+}
+#academic-calendar tbody tr:hover {
+  background-color: #f1f3f5;
+}
+
+/* Styles pour les types d'événements */
+.event-type {
+  padding: 5px 10px;
+  border-radius: 6px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  display: inline-block;
+}
+.type-orientation { background-color: #17a2b8; }
+.type-cours-normale { background-color: #28a745; }
+.type-fête-nationale-saoudienne, .type-jour-de-la-fondation-saoudienne { background-color: #006400; }
+.type-vacances, .type-vacances-aïd-al-fitr, .type-vacances-aïd-al-adha, .type-long-weekend { background-color: #ffc107; color: #212529; }
+.type-examen-final, .type-évaluations { background-color: #dc3545; }
+
 
 /* Pied de page */
-.site-footer{max-width:1200px;margin:0 auto;padding:24px 16px;color:var(--muted);text-align:center}
+.site-footer{
+  max-width:1400px;
+  margin:0 auto;
+  padding:32px 16px;
+  color:var(--muted);
+  text-align:center;
+  border-top: 1px solid var(--panel-2);
+  margin-top: 32px;
+}
