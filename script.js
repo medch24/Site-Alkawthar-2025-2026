@@ -221,7 +221,7 @@
   const closeModalBtn = calendarModal?.querySelector('.modal-close');
 
   /**
-   * Peuple le tableau du calendrier avec les données, en fusionnant les cellules de type.
+   * Peuple le tableau du calendrier avec les données, en fusionnant les cellules et en colorant les lignes.
    * @param {string} [filter='all'] - Le mois par lequel filtrer, ou 'all' pour tout afficher.
    */
   function populateCalendar(filter = 'all') {
@@ -235,6 +235,7 @@
     let i = 0;
     while (i < filteredData.length) {
         const currentItem = filteredData[i];
+        const typeSlug = currentItem.Type.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
         
         // Compte les éléments consécutifs avec le même type
         let rowspanCount = 1;
@@ -246,16 +247,14 @@
 
         // Crée la première ligne de la séquence avec rowspan
         const row = document.createElement('tr');
-        const typeSlug = currentItem.Type.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        row.classList.add(`type-${typeSlug}`); // Ajoute la classe à la ligne
         
         row.innerHTML = `
             <td>${currentItem.Mois}</td>
             <td>${currentItem.Semaine}</td>
             <td>${currentItem.Jour}</td>
             <td>${currentItem.Date}</td>
-            <td rowspan="${rowspanCount}">
-                <span class="event-type type-${typeSlug}">${currentItem.Type}</span>
-            </td>
+            <td rowspan="${rowspanCount}">${currentItem.Type}</td>
         `;
         calendarBody.appendChild(row);
 
@@ -263,6 +262,7 @@
         for (let k = 1; k < rowspanCount; k++) {
             const nextItem = filteredData[i + k];
             const subsequentRow = document.createElement('tr');
+            subsequentRow.classList.add(`type-${typeSlug}`); // Ajoute la classe aux lignes suivantes
             subsequentRow.innerHTML = `
                 <td>${nextItem.Mois}</td>
                 <td>${nextItem.Semaine}</td>
