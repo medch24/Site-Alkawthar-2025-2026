@@ -219,6 +219,15 @@
   const openCalendarBtn = document.getElementById('open-calendar-btn');
   const calendarModal = document.getElementById('calendar-modal');
   const closeModalBtn = calendarModal?.querySelector('.modal-close');
+  
+  // Éléments pour les nouveaux modals
+  const openPlanBtn = document.getElementById('open-plan-modal');
+  const planModal = document.getElementById('plan-modal');
+  const closePlanBtn = planModal?.querySelector('.modal-close');
+  
+  const openDevoirsBtn = document.getElementById('open-devoirs-modal');
+  const devoirsModal = document.getElementById('devoirs-modal');
+  const closeDevoirsBtn = devoirsModal?.querySelector('.modal-close');
 
   /**
    * Peuple le tableau du calendrier avec les données, en fusionnant les cellules et en colorant les lignes.
@@ -297,6 +306,38 @@
   // --- Gestion des filtres ---
   monthFilter?.addEventListener('change', (event) => {
     populateCalendar(event.target.value);
+  });
+
+  // --- Gestion du Modal Plan Hebdomadaire ---
+  openPlanBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    planModal?.classList.add('visible');
+  });
+
+  closePlanBtn?.addEventListener('click', () => {
+    planModal?.classList.remove('visible');
+  });
+
+  planModal?.addEventListener('click', (e) => {
+    if (e.target === planModal) {
+      planModal.classList.remove('visible');
+    }
+  });
+
+  // --- Gestion du Modal Devoirs ---
+  openDevoirsBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    devoirsModal?.classList.add('visible');
+  });
+
+  closeDevoirsBtn?.addEventListener('click', () => {
+    devoirsModal?.classList.remove('visible');
+  });
+
+  devoirsModal?.addEventListener('click', (e) => {
+    if (e.target === devoirsModal) {
+      devoirsModal.classList.remove('visible');
+    }
   });
 
   // --- Initialisation ---
