@@ -167,13 +167,45 @@
   <div id="calendar-modal" class="modal-overlay">
     <div class="modal-content">
       <button class="modal-close" aria-label="Fermer">&times;</button>
+      
       <section class="calendar-section">
         <div class="calendar-header">
-          <h2>Calendrier Académique 2025-2026</h2>
-          <div class="calendar-filters">
-            <label for="month-filter">Filtrer par mois :</label>
-            <select id="month-filter">
-              <option value="all">Tous les mois</option>
+          <h2>🗓️ Calendrier Scolaire 2025-2026</h2>
+          
+          <!-- Lien vers calendrier IB -->
+          <a href="https://ib-calender.vercel.app/" target="_blank" class="ib-calendar-link">
+            <span class="ib-icon">🎯</span>
+            <span>Calendrier IB</span>
+          </a>
+        </div>
+
+        <!-- Statistiques -->
+        <div id="calendar-stats" class="stats-grid"></div>
+
+        <!-- Modes de vue et filtres -->
+        <div class="calendar-filters">
+          <div class="view-mode-buttons">
+            <button class="view-mode-btn active" data-view="all">
+              <span class="view-icon">📋</span>
+              <span>Tableau</span>
+            </button>
+            <button class="view-mode-btn" data-view="timeline">
+              <span class="view-icon">📊</span>
+              <span>Timeline</span>
+            </button>
+          </div>
+          
+          <div class="filter-controls">
+            <select id="type-filter" class="filter-select">
+              <option value="all">🔎 Tous les types</option>
+              <option value="cours">📚 Cours</option>
+              <option value="examen">📝 Examens</option>
+              <option value="vacances">🏖️ Vacances</option>
+              <option value="conge">🎉 Jours fériés</option>
+            </select>
+            
+            <select id="month-filter" class="filter-select">
+              <option value="all">📅 Tous les mois</option>
               <option value="Août">Août</option>
               <option value="Septembre">Septembre</option>
               <option value="Octobre">Octobre</option>
@@ -188,7 +220,9 @@
             </select>
           </div>
         </div>
-        <div class="calendar-container">
+
+        <!-- Vue Tableau -->
+        <div class="calendar-container calendar-view">
           <table id="academic-calendar">
             <thead>
               <tr>
@@ -200,9 +234,14 @@
               </tr>
             </thead>
             <tbody>
-              <!-- Le contenu du calendrier sera injecté ici par le script.js -->
+              <!-- Le contenu sera généré par JavaScript -->
             </tbody>
           </table>
+        </div>
+
+        <!-- Vue Timeline -->
+        <div id="timeline-view" class="timeline-container" style="display: none;">
+          <!-- Le contenu sera généré par JavaScript -->
         </div>
       </section>
     </div>
